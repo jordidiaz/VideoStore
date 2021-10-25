@@ -39,7 +39,7 @@ namespace VideoStore
         }
 
         [Fact]
-        public void TestSingleChildrensStatement()
+        public void TestSingleChildrenStatement()
         {
             _customer.AddRental(new Rental(_children, 3));
             AssertAmountAndPointsForStatement(1.5, 1);
