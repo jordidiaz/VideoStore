@@ -6,7 +6,7 @@ namespace VideoStore
     public class Customer
     {
         private readonly ArrayList _rentals = new();
-        public string Name { get; }
+        private string Name { get; }
 
         public Customer(string name)
         {
