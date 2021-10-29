@@ -47,25 +47,25 @@ namespace VideoStore
 
         private static decimal CalculateAmount(Rental rental)
         {
-            decimal thisAmount = 0;
+            decimal amount = 0;
             switch (rental.Movie.PriceCode)
             {
                 case Movie.Regular:
-                    thisAmount += 2;
+                    amount += 2;
                     if (rental.DaysRented > 2)
-                        thisAmount += (rental.DaysRented - 2) * 1.5m;
+                        amount += (rental.DaysRented - 2) * 1.5m;
                     break;
                 case Movie.NewRelease:
-                    thisAmount += rental.DaysRented * 3;
+                    amount += rental.DaysRented * 3;
                     break;
                 case Movie.Children:
-                    thisAmount += 1.5m;
+                    amount += 1.5m;
                     if (rental.DaysRented > 3)
-                        thisAmount += (rental.DaysRented - 3) * 1.5m;
+                        amount += (rental.DaysRented - 3) * 1.5m;
                     break;
             }
 
-            return thisAmount;
+            return amount;
         }
     }
 }
