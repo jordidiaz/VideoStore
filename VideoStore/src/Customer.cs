@@ -25,7 +25,7 @@ namespace VideoStore
             var result = "Rental Record for " + Name + "\n";
             foreach (var rental in _rentals.Cast<Rental>())
             {
-                var thisAmount = CalculateAmount(rental);
+                var thisAmount = rental.CalculateAmount();
 
                 // add frequent renter points
                 frequentRenterPoints++;
@@ -43,29 +43,6 @@ namespace VideoStore
             result += $"Amount owed is "+ $"{totalAmount:F1}\n";
             result += $"You earned {frequentRenterPoints} frequent renter points";
             return result;
-        }
-
-        private static decimal CalculateAmount(Rental rental)
-        {
-            decimal amount = 0;
-            switch (rental.Movie.PriceCode)
-            {
-                case Movie.Regular:
-                    amount += 2;
-                    if (rental.DaysRented > 2)
-                        amount += (rental.DaysRented - 2) * 1.5m;
-                    break;
-                case Movie.NewRelease:
-                    amount += rental.DaysRented * 3;
-                    break;
-                case Movie.Children:
-                    amount += 1.5m;
-                    if (rental.DaysRented > 3)
-                        amount += (rental.DaysRented - 3) * 1.5m;
-                    break;
-            }
-
-            return amount;
         }
     }
 }
