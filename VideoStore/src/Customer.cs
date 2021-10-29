@@ -36,9 +36,14 @@ namespace VideoStore
             }
 
             // add footer lines
-            result += $"Amount owed is "+ $"{totalAmount:F1}\n";
+            result += $"Amount owed is "+ $"{CalculateTotalAmount():F1}\n";
             result += $"You earned {frequentRenterPoints} frequent renter points";
             return result;
+        }
+
+        private decimal CalculateTotalAmount()
+        {
+            return _rentals.Cast<Rental>().Sum(rental => rental.CalculateAmount());
         }
         
         public string StatementHtml()
@@ -57,7 +62,7 @@ namespace VideoStore
             }
 
             // add footer lines
-            result += $"Amount owed is {totalAmount:F1}<br>";
+            result += $"Amount owed is {CalculateTotalAmount():F1}<br>";
             result += $"You earned {frequentRenterPoints} frequent renter points";
             return result;
         }
