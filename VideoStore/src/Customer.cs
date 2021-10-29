@@ -31,7 +31,7 @@ namespace VideoStore
                 var thisAmount = rental.CalculateAmount();
                 
                 // show figures for this rental
-                result += $"\t{rental.Movie.Title}\t"+ $"{thisAmount:F1}\n";
+                result += $"\t{rental.GetMovieTitle()}\t"+ $"{thisAmount:F1}\n";
                 totalAmount += thisAmount;
             }
 

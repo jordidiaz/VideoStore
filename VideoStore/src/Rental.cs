@@ -44,5 +44,10 @@
             
             return 1;
         }
+
+        public string GetMovieTitle()
+        {
+            return Movie.Title;
+        }
     }
 }
