@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Threading;
 using Xunit;
 
 namespace VideoStore
@@ -14,6 +16,7 @@ namespace VideoStore
 
         public VideoStoreSpec()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             _customer = new Customer("Customer Name");
             _newRelease1 = new Movie("New Release 1", Movie.NewRelease);
             _newRelease2 = new Movie("New Release 2", Movie.NewRelease);
