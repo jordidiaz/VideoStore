@@ -25,16 +25,11 @@ namespace VideoStore
             var result = "Rental Record for " + Name + "\n";
             foreach (var rental in _rentals.Cast<Rental>())
             {
-                var thisAmount = rental.CalculateAmount();
-
-                // add frequent renter points
-                frequentRenterPoints++;
-                // add bonus for a two day new release rental
-                if ((rental.Movie.PriceCode == Movie.NewRelease) &&
-                    rental.DaysRented > 1)
-                    frequentRenterPoints++;
+                frequentRenterPoints = CalculateFrequentRenterPoints(frequentRenterPoints, rental);
 
                 // show figures for this rental
+                var thisAmount = rental.CalculateAmount();
+                
                 result += $"\t{rental.Movie.Title}\t"+ $"{thisAmount:F1}\n";
                 totalAmount += thisAmount;
             }
@@ -43,6 +38,17 @@ namespace VideoStore
             result += $"Amount owed is "+ $"{totalAmount:F1}\n";
             result += $"You earned {frequentRenterPoints} frequent renter points";
             return result;
+        }
+
+        private static int CalculateFrequentRenterPoints(int frequentRenterPoints, Rental rental)
+        {
+            // add frequent renter points
+            frequentRenterPoints++;
+            // add bonus for a two day new release rental
+            if ((rental.Movie.PriceCode == Movie.NewRelease) &&
+                rental.DaysRented > 1)
+                frequentRenterPoints++;
+            return frequentRenterPoints;
         }
     }
 }
