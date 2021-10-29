@@ -40,5 +40,26 @@ namespace VideoStore
             result += $"You earned {frequentRenterPoints} frequent renter points";
             return result;
         }
+        
+        public string StatementHtml()
+        {
+            decimal totalAmount = 0;
+            var frequentRenterPoints = 0;
+            var result = "Rental Record for " + Name + "<br>";
+            foreach (var rental in _rentals.Cast<Rental>())
+            {
+                frequentRenterPoints += rental.CalculateFrequentRenterPoints();
+                var thisAmount = rental.CalculateAmount();
+                
+                // show figures for this rental
+                result += $"\t{rental.GetMovieTitle()}\t{thisAmount:F1}<br>";
+                totalAmount += thisAmount;
+            }
+
+            // add footer lines
+            result += $"Amount owed is {totalAmount:F1}<br>";
+            result += $"You earned {frequentRenterPoints} frequent renter points";
+            return result;
+        }
     }
 }

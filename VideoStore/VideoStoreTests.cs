@@ -73,6 +73,22 @@ namespace VideoStore
             Assert.Equal(expectedStatement, _customer.Statement());
         }
         
+        [Fact]
+        public void TestRentalStatementFormatHtml()
+        {
+            _customer.AddRental(new Rental(_regular1, 1));
+            _customer.AddRental(new Rental(_regular2, 2));
+            _customer.AddRental(new Rental(_regular3, 3));
+
+            const string expectedStatement = "Rental Record for Customer Name<br>" +
+                                             "\tRegular 1\t2.0<br>" +
+                                             "\tRegular 2\t2.0<br>" +
+                                             "\tRegular 3\t3.5<br>" +
+                                             "Amount owed is 7.5<br>" +
+                                             "You earned 3 frequent renter points";
+            Assert.Equal(expectedStatement, _customer.StatementHtml());
+        }
+        
         private void AssertAmountAndPointsForStatement(double expectedAmount, int expectedPoints)
         {
             var statement = _customer.Statement();
